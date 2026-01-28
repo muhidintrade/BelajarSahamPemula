@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Belajar Saham dari Nol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Merriweather:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D5F8D;
+            --secondary: #E8A547;
+            --accent: #D4765C;
+            --success: #4A9B7F;
+            --background: #FFF9F0;
+            --text: #2C3E50;
+            --light: #F7F3E8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.8;
+            color: var(--text);
+            background: linear-gradient(135deg, #FFF9F0 0%, #F7F3E8 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, #1e4568 100%);
+            color: white;
+            border-radius: 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(45, 95, 141, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .hero h1 {
+            font-size: 3.2em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-family: 'Merriweather', serif;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            padding: 40px;
+            margin-bottom: 35px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--light);
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: 800;
+            box-shadow: 0 5px 20px rgba(232, 165, 71, 0.4);
+            flex-shrink: 0;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .section p {
+            margin-bottom: 20px;
+            font-size: 1.05em;
+            line-height: 1.9;
+        }
+
+        /* Icon Boxes */
+        .icon-box {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .icon-box:hover {
+            background: #fff;
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .icon-box h3 {
+            color: var(--primary);
+            font-size: 1.4em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-box h3::before {
+            content: '💡';
+            font-size: 1.3em;
+        }
+
+        /* Steps */
+        .steps {
+            counter-reset: step-counter;
+        }
+
+        .step {
+            background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            border: 2px solid var(--light);
+            position: relative;
+            padding-left: 80px;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 5px 20px rgba(232, 165, 71, 0.15);
+        }
+
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, var(--success) 0%, #3a7d67 100%);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4em;
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(74, 155, 127, 0.3);
+        }
+
+        .step h4 {
+            color: var(--primary);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        /* Tips Grid */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            border: 2px solid var(--light);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .tip-card:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(212, 118, 92, 0.15);
+        }
+
+        .tip-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .tip-card h4 {
+            color: var(--primary);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: linear-gradient(135deg, #FFF4E6 0%, #FFE8CC 100%);
+            border-left: 5px solid var(--accent);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .warning-box h4 {
+            color: var(--accent);
+            font-size: 1.3em;
+            display: inline;
+        }
+
+        /* Success Box */
+        .success-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left: 5px solid var(--success);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .success-box::before {
+            content: '🎯';
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .success-box h4 {
+            color: var(--success);
+            font-size: 1.3em;
+            display: inline;
+        }
+
+        /* Motivational Quote */
+        .quote {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e4568 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 10em;
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+
+        .quote p {
+            font-size: 1.5em;
+            font-family: 'Merriweather', serif;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+            margin: 0;
+        }
+
+        /* Final Message */
+        .final-message {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            margin-top: 50px;
+            box-shadow: 0 15px 50px rgba(232, 165, 71, 0.3);
+        }
+
+        .final-message h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .final-message p {
+            font-size: 1.3em;
+            line-height: 1.8;
+        }
+
+        /* Illustration */
+        .illustration {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .illustration svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* List Styling */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            font-size: 1.05em;
+        }
+
+        ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2em;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            .section h2 {
+                font-size: 1.6em;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step {
+                padding-left: 75px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>📈 Modul Belajar Saham dari Nol</h1>
+            <p>Panduan Lengkap Menjadi Investor Cerdas & Sejahtera</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">0</div>
+                <h2>Pengantar: Kenapa Saham?</h2>
+            </div>
+            
+            <p>Selamat datang di dunia investasi saham! Investasi saham adalah cara paling powerful untuk membangun kekayaan jangka panjang. Dengan membeli saham, kamu menjadi pemilik sebagian dari perusahaan-perusahaan besar dan ikut menikmati keuntungan mereka.</p>
+            
+            <div class="illustration">
+                <svg viewBox="0 0 400 200" style="max-width: 400px;">
+                    <rect x="50" y="150" width="60" height="40" fill="#4A9B7F" opacity="0.8"/>
+                    <rect x="130" y="120" width="60" height="70" fill="#4A9B7F" opacity="0.8"/>
+                    <rect x="210" y="80" width="60" height="110" fill="#2D5F8D" opacity="0.9"/>
+                    <rect x="290" y="40" width="60" height="150" fill="#E8A547"/>
+                    <text x="80" y="175" fill="white" font-size="14" font-weight="bold" text-anchor="middle">Mulai</text>
+                    <text x="160" y="165" fill="white" font-size="14" font-weight="bold" text-anchor="middle">Belajar</text>
+                    <text x="240" y="145" fill="white" font-size="14" font-weight="bold" text-anchor="middle">Konsisten</text>
+                    <text x="320" y="125" fill="white" font-size="14" font-weight="bold" text-anchor="middle">Sukses!</text>
+                    <polyline points="80,140 160,110 240,70 320,30" fill="none" stroke="#D4765C" stroke-width="3" stroke-dasharray="5,5"/>
+                </svg>
+            </div>
+
+            <div class="icon-box">
+                <h3>Yang Perlu Kamu Tahu</h3>
+                <ul>
+                    <li>Investasi saham itu BUKAN judi, tapi kepemilikan bisnis nyata</li>
+                    <li>Dengan strategi yang tepat, risiko bisa dikendalikan</li>
+                    <li>Dividend memberikan passive income rutin</li>
+                    <li>Mulai dengan modal kecil juga bisa, yang penting konsisten!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Step 1: Pilih Sekuritas -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2>Memilih Perusahaan Sekuritas</h2>
+            </div>
+            
+            <p>Sekuritas adalah "pintu gerbang" kamu menuju pasar saham. Mereka adalah perantara yang menghubungkan kamu dengan Bursa Efek Indonesia (BEI).</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <h4>Riset Sekuritas Terpercaya</h4>
+                    <p>Pilih sekuritas yang sudah terdaftar di OJK (Otoritas Jasa Keuangan). Cek reputasi, biaya transaksi, dan kemudahan aplikasinya.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Bandingkan Biaya</h4>
+                    <p>Perhatikan biaya beli/jual saham, biaya bulanan, dan biaya lainnya. Biaya yang lebih rendah = lebih banyak keuntungan untukmu!</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Cek Fitur Aplikasi</h4>
+                    <p>Pastikan aplikasinya user-friendly, punya analisa saham, dan notifikasi yang membantu.</p>
+                </div>
+            </div>
+
+            <div class="icon-box">
+                <h3>Rekomendasi Sekuritas Populer</h3>
+                <p>Beberapa sekuritas populer di Indonesia: Ajaib, Stockbit, Bibit, Indo Premier, Mandiri Sekuritas, dan masih banyak lagi. Pilih yang cocok dengan gaya investasimu!</p>
+            </div>
+        </div>
+
+        <!-- Step 2: Pendaftaran -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2>Proses Pendaftaran</h2>
+            </div>
+            
+            <p>Pendaftaran sekarang super mudah! Semua bisa dilakukan online dalam hitungan menit.</p>
+            
+            <div class="illustration">
+                <svg viewBox="0 0 400 150" style="max-width: 400px;">
+                    <circle cx="80" cy="75" r="40" fill="#2D5F8D" opacity="0.8"/>
+                    <text x="80" y="85" fill="white" font-size="35" text-anchor="middle">📱</text>
+                    <line x1="120" y1="75" x2="160" y2="75" stroke="#E8A547" stroke-width="3"/>
+                    <circle cx="200" cy="75" r="40" fill="#4A9B7F" opacity="0.8"/>
+                    <text x="200" y="85" fill="white" font-size="35" text-anchor="middle">📄</text>
+                    <line x1="240" y1="75" x2="280" y2="75" stroke="#E8A547" stroke-width="3"/>
+                    <circle cx="320" cy="75" r="40" fill="#D4765C" opacity="0.8"/>
+                    <text x="320" y="85" fill="white" font-size="35" text-anchor="middle">✅</text>
+                </svg>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <h4>Download Aplikasi</h4>
+                    <p>Download aplikasi sekuritas pilihanmu dari Play Store atau App Store.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Siapkan Dokumen</h4>
+                    <p>KTP, NPWP (kalau ada), nomor rekening bank, dan foto selfie dengan KTP.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Isi Data & Verifikasi</h4>
+                    <p>Isi formulir dengan lengkap dan benar. Proses verifikasi biasanya 1-3 hari kerja.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Aktifkan Akun</h4>
+                    <p>Setelah disetujui, akun RDN (Rekening Dana Nasabah) akan dibuat otomatis. Kamu siap bertransaksi!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Deposit -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2>Melakukan Deposit</h2>
+            </div>
+            
+            <p>Setelah akun aktif, saatnya mengisi saldo! Deposit adalah proses transfer dana dari rekening bankmu ke RDN.</p>
+            
+            <div class="icon-box">
+                <h3>Cara Deposit</h3>
+                <ul>
+                    <li>Transfer dari rekening bank ke nomor RDN-mu</li>
+                    <li>Gunakan kode unik jika diminta (biasanya 3 digit terakhir)</li>
+                    <li>Dana masuk biasanya real-time atau maksimal 1 hari kerja</li>
+                    <li>Mulai dengan nominal kecil dulu untuk belajar (misal Rp 500.000)</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h4>Tips Bijak:</h4>
+                <p>Investasikan uang "dingin" yang tidak kamu butuhkan untuk 3-5 tahun ke depan. Jangan pakai uang darurat atau uang untuk kebutuhan sehari-hari!</p>
+            </div>
+        </div>
+
+        <!-- Step 4: Analisa Sederhana -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <h2>Analisa Sederhana untuk Pemula</h2>
+            </div>
+            
+            <p>Gak perlu jadi ahli ekonomi! Ada dua analisa dasar yang perlu kamu tahu:</p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <span class="tip-icon">📊</span>
+                    <h4>Analisa Fundamental</h4>
+                    <p>Lihat kesehatan perusahaan: laporan keuangan, laba rugi, aset, dan prospek bisnisnya.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">📈</span>
+                    <h4>Analisa Teknikal</h4>
+                    <p>Perhatikan pola pergerakan harga saham dan volume transaksi untuk timing yang tepat.</p>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>Kabar Baik untuk Pemula!</h4>
+                <p>Kamu TIDAK perlu bingung mencari data fundamental sendiri! Semua data sudah disediakan lengkap oleh aplikasi sekuritas kamu. Tinggal buka aplikasi, pilih saham, dan lihat informasi fundamentalnya. Mudah kan?</p>
+            </div>
+
+            <div class="icon-box">
+                <h3>Cara Mudah Analisa Fundamental untuk Pemula</h3>
+                <p style="margin-bottom: 15px;">Buka aplikasi sekuritas kamu, pilih saham yang mau kamu beli, lalu cek hal-hal penting berikut:</p>
+                <ul>
+                    <li><strong>Fundamental Bagus:</strong> Cek apakah perusahaan untung (profit) atau rugi. Pilih yang konsisten untung!</li>
+                    <li><strong>History Dividen:</strong> Lihat apakah perusahaan rutin bagi dividen 2-3 tahun terakhir. Konsisten = bagus!</li>
+                    <li><strong>Profitable:</strong> Pastikan perusahaan punya laba bersih positif dan terus tumbuh</li>
+                    <li><strong>Prospek Bisnis:</strong> Bisnis perusahaan masih relevan? Produknya masih dibutuhkan orang?</li>
+                </ul>
+            </div>
+
+            <div class="icon-box">
+                <h3>Indikator Penting (Ada di Aplikasi Sekuritas)</h3>
+                <ul>
+                    <li><strong>PER (Price to Earning Ratio):</strong> Semakin rendah biasanya semakin murah (ideal &lt; 20)</li>
+                    <li><strong>PBV (Price to Book Value):</strong> Bandingkan harga saham dengan nilai bukunya (ideal &lt; 3)</li>
+                    <li><strong>Dividend Yield:</strong> Persentase dividen terhadap harga saham (bagus kalau 3-8%)</li>
+                    <li><strong>ROE (Return on Equity):</strong> Kemampuan perusahaan menghasilkan laba (bagus kalau &gt; 15%)</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Checklist Sederhana Sebelum Beli:</h4>
+                <p>✅ Fundamental bagus (cek di app)<br>
+                ✅ History dividen tidak masalah<br>
+                ✅ Profitable - perusahaan untung<br>
+                ✅ Prospek bisnis bagus<br>
+                <strong>Kalau semua checklist oke? LANGSUNG BELI!</strong></p>
+            </div>
+        </div>
+
+        <!-- Step 5: Memilih Saham -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <h2>Memilih Saham yang Tepat</h2>
+            </div>
+            
+            <p>Fokus pada saham-saham blue chip (perusahaan besar dan stabil) untuk pemula. Saham dividend adalah pilihan terbaik untuk passive income!</p>
+            
+            <div class="illustration">
+                <svg viewBox="0 0 400 180" style="max-width: 400px;">
+                    <rect x="50" y="30" width="80" height="100" rx="10" fill="#2D5F8D" opacity="0.8"/>
+                    <text x="90" y="90" fill="white" font-size="40" text-anchor="middle">🏦</text>
+                    <text x="90" y="150" fill="#2D5F8D" font-size="14" font-weight="bold" text-anchor="middle">Banking</text>
+                    
+                    <rect x="160" y="30" width="80" height="100" rx="10" fill="#4A9B7F" opacity="0.8"/>
+                    <text x="200" y="90" fill="white" font-size="40" text-anchor="middle">📱</text>
+                    <text x="200" y="150" fill="#4A9B7F" font-size="14" font-weight="bold" text-anchor="middle">Telco</text>
+                    
+                    <rect x="270" y="30" width="80" height="100" rx="10" fill="#E8A547" opacity="0.8"/>
+                    <text x="310" y="90" fill="white" font-size="40" text-anchor="middle">🏭</text>
+                    <text x="310" y="150" fill="#E8A547" font-size="14" font-weight="bold" text-anchor="middle">Konsumer</text>
+                </svg>
+            </div>
+
+            <div class="icon-box">
+                <h3>Sektor Saham Populer untuk Dividend</h3>
+                <ul>
+                    <li><strong>Perbankan:</strong> BCA, BRI, Mandiri - dividen rutin & stabil</li>
+                    <li><strong>Telekomunikasi:</strong> Telkom - dividend yield tinggi</li>
+                    <li><strong>Konsumer:</strong> Unilever, Indofood - pertumbuhan stabil</li>
+                    <li><strong>Infrastruktur:</strong> Jalan Tol, PLN - prospek jangka panjang bagus</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h4>Strategi Diversifikasi untuk Pemula:</h4>
+                <p>Untuk pemula, <strong>JANGAN over diversifikasi!</strong> Cukup fokus pada 3-5 emiten/perusahaan saja. Lebih baik membesarkan aset di beberapa saham yang kamu pahami betul, daripada punya banyak saham tapi nilai masing-masing kecil. Fokus, konsisten, besarkan aset!</p>
+            </div>
+        </div>
+
+        <!-- Step 6: Beli Konsisten -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <h2>Beli Secara Konsisten</h2>
+            </div>
+            
+            <p>Rahasia sukses investasi saham adalah KONSISTENSI! Beli rutin setiap bulan, tidak peduli harga naik atau turun. Ini namanya strategi Dollar Cost Averaging (DCA).</p>
+            
+            <div class="illustration">
+                <svg viewBox="0 0 400 150" style="max-width: 400px;">
+                    <path d="M 50 120 L 100 100 L 150 110 L 200 80 L 250 90 L 300 60 L 350 50" 
+                          fill="none" stroke="#E8A547" stroke-width="4"/>
+                    <circle cx="50" cy="120" r="8" fill="#2D5F8D"/>
+                    <circle cx="100" cy="100" r="8" fill="#2D5F8D"/>
+                    <circle cx="150" cy="110" r="8" fill="#2D5F8D"/>
+                    <circle cx="200" cy="80" r="8" fill="#2D5F8D"/>
+                    <circle cx="250" cy="90" r="8" fill="#2D5F8D"/>
+                    <circle cx="300" cy="60" r="8" fill="#2D5F8D"/>
+                    <circle cx="350" cy="50" r="8" fill="#4A9B7F"/>
+                    <text x="200" y="145" fill="#2D5F8D" font-size="16" font-weight="bold" text-anchor="middle">Waktu →</text>
+                </svg>
+            </div>
+
+            <div class="icon-box">
+                <h3>Kenapa Harus Konsisten?</h3>
+                <ul>
+                    <li>Saat harga turun, kamu beli lebih banyak lot dengan uang yang sama</li>
+                    <li>Saat harga naik, nilai investasimu bertambah</li>
+                    <li>Rata-rata harga belimu jadi lebih optimal</li>
+                    <li>Menghilangkan emosi "takut" atau "serakah" dalam berinvestasi</li>
+                </ul>
+            </div>
+
+            <div class="quote">
+                <p>"Waktu di pasar lebih penting daripada timing pasar"</p>
+            </div>
+        </div>
+
+        <!-- Step 7: Dividend -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <h2>Menikmati Dividen</h2>
+            </div>
+            
+            <p>Dividen adalah hadiah dari perusahaan kepada pemegang saham! Ini adalah bagian keuntungan perusahaan yang dibagikan secara rutin (biasanya setahun sekali atau dua kali).</p>
+            
+            <div class="illustration">
+                <svg viewBox="0 0 400 150" style="max-width: 400px;">
+                    <rect x="120" y="30" width="160" height="90" rx="15" fill="#4A9B7F" opacity="0.9"/>
+                    <text x="200" y="80" fill="white" font-size="50" text-anchor="middle">💰</text>
+                    <text x="200" y="135" fill="#4A9B7F" font-size="18" font-weight="bold" text-anchor="middle">Dividen Masuk!</text>
+                    <circle cx="50" cy="75" r="3" fill="#E8A547"/>
+                    <circle cx="80" cy="75" r="3" fill="#E8A547"/>
+                    <circle cx="110" cy="75" r="3" fill="#E8A547"/>
+                    <circle cx="290" cy="75" r="3" fill="#E8A547"/>
+                    <circle cx="320" cy="75" r="3" fill="#E8A547"/>
+                    <circle cx="350" cy="75" r="3" fill="#E8A547"/>
+                </svg>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <span class="tip-icon">📅</span>
+                    <h4>Cum Date</h4>
+                    <p>Tanggal terakhir kamu harus punya saham untuk dapat dividen</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">💳</span>
+                    <h4>Payment Date</h4>
+                    <p>Tanggal dividen masuk ke RDN-mu</p>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>Strategi Dividen Hunter:</h4>
+                <p>Fokus pada saham dengan dividend yield 4-8% per tahun. Reinvestasikan dividen yang kamu terima untuk efek compounding yang luar biasa!</p>
+            </div>
+        </div>
+
+        <!-- Step 8: Kapan Jual? -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">8</div>
+                <h2>Kapan Sebaiknya Jual?</h2>
+            </div>
+            
+            <p>Untuk strategi dividen, prinsipnya adalah: HOLD & BUY MORE! Tapi ada kalanya kamu perlu jual:</p>
+            
+            <div class="icon-box">
+                <h3>Alasan yang Tepat untuk Jual</h3>
+                <ul>
+                    <li><strong>Fundamental Memburuk:</strong> Perusahaan rugi terus, hutang membengkak, atau bisnis model sudah ketinggalan zaman</li>
+                    <li><strong>Butuh Dana Darurat:</strong> Ada kebutuhan mendesak yang tidak bisa ditunda</li>
+                    <li><strong>Rebalancing Portfolio:</strong> Satu saham sudah terlalu dominan, perlu diversifikasi ulang</li>
+                    <li><strong>Profit Taking Sebagian:</strong> Ambil keuntungan 20-30% saat harga naik signifikan, sisanya tetap hold</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Jangan Jual Karena:</h4>
+                <p>❌ Panik saat harga turun sementara<br>
+                ❌ Ikut-ikutan rumor atau gosip pasar<br>
+                ❌ Melihat saham lain naik lebih cepat (FOMO)<br>
+                ❌ Butuh uang untuk gaya hidup konsumtif</p>
+            </div>
+        </div>
+
+        <!-- Risk Management -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">9</div>
+                <h2>Memahami & Mengendalikan Risiko</h2>
+            </div>
+            
+            <p>Semua investasi ada risikonya, tapi risiko saham bisa DIKENDALIKAN dengan strategi yang tepat!</p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <span class="tip-icon">🛡️</span>
+                    <h4>Diversifikasi</h4>
+                    <p>Spread investasi ke 5-10 saham berbeda</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">📚</span>
+                    <h4>Edukasi</h4>
+                    <p>Terus belajar tentang investasi & ekonomi</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">⏰</span>
+                    <h4>Jangka Panjang</h4>
+                    <p>Minimal hold 3-5 tahun untuk hasil optimal</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">💪</span>
+                    <h4>Mental Kuat</h4>
+                    <p>Tidak panik saat market volatil</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                <p>"Risiko datang dari tidak tahu apa yang kamu lakukan" - Warren Buffett</p>
+            </div>
+        </div>
+
+        <!-- Mindset -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">10</div>
+                <h2>Mindset Investor Sukses</h2>
+            </div>
+            
+            <p>Mindset adalah 80% dari kesuksesan investasi! Berikut mindset yang harus kamu tanamkan:</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <h4>Berani Mengambil Keputusan</h4>
+                    <p>Investor sukses adalah mereka yang berani bertindak. Jangan takut memulai, yang penting start dengan benar!</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Jangan Panik</h4>
+                    <p>Harga saham naik-turun itu WAJAR. Yang penting fundamental perusahaan masih bagus. Red is opportunity!</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Sabar & Yakin</h4>
+                    <p>Kekayaan tidak dibangun dalam semalam. Bersabar dengan proses, yakin dengan strategi yang sudah kamu pelajari.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Berani Hadapi Risiko</h4>
+                    <p>Risk and reward berbanding lurus. Yang penting risiko terukur dan terkendali, bukan judi!</p>
+                </div>
+            </div>
+
+            <div class="icon-box">
+                <h3>Tips Mindset Jangka Panjang</h3>
+                <ul>
+                    <li>Fokus pada proses, bukan hasil jangka pendek</li>
+                    <li>Jangan compare portfoliomu dengan orang lain</li>
+                    <li>Bersyukur dengan setiap progress, sekecil apapun</li>
+                    <li>Terus upgrade ilmu dan strategi investasimu</li>
+                    <li>Ingat tujuan awal kenapa kamu investasi</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tips Sukses -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">11</div>
+                <h2>Tips Sukses Singkat</h2>
+            </div>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <span class="tip-icon">🎯</span>
+                    <h4>Set Target Jelas</h4>
+                    <p>Tentukan tujuan finansialmu 5-10 tahun ke depan</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">📊</span>
+                    <h4>Review Rutin</h4>
+                    <p>Cek portfolio minimal 1x per bulan, bukan setiap hari!</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">🤝</span>
+                    <h4>Join Komunitas</h4>
+                    <p>Belajar dari investor lain & sharing pengalaman</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">📖</span>
+                    <h4>Baca Laporan</h4>
+                    <p>Rajin baca laporan keuangan & annual report</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">💰</span>
+                    <h4>Reinvest Dividen</h4>
+                    <p>Beli saham lagi pakai dividen untuk compounding</p>
+                </div>
+                
+                <div class="tip-card">
+                    <span class="tip-icon">🧘</span>
+                    <h4>Stay Calm</h4>
+                    <p>Market volatil? Tetap tenang dan stick to plan</p>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>Rumus Sukses Investasi:</h4>
+                <p><strong>KONSISTEN + SABAR + BELAJAR = SUKSES!</strong><br>
+                Tidak ada jalan pintas. Yang ada adalah jalan yang benar dan konsisten!</p>
+            </div>
+        </div>
+
+        <!-- Final Message -->
+        <div class="final-message">
+            <h2>🎉 Selamat! Kamu Sudah Jadi Investor!</h2>
+            <p>Dengan menyelesaikan modul ini dan memulai investasi saham, kamu sudah mengambil langkah penting menuju kebebasan finansial!</p>
+            <p style="margin-top: 20px; font-size: 1.2em; font-weight: 600;">Ingat: Investasi terbaik adalah investasi pada dirimu sendiri. Terus belajar, stay disciplined, dan nikmati perjalanan menuju kesejahteraan finansial di masa depan! 🚀</p>
+            <p style="margin-top: 30px; font-style: italic; opacity: 0.9;">"The best time to plant a tree was 20 years ago. The second best time is now."</p>
+        </div>
+
+        <!-- Game Simulasi -->
+        <div class="section" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 3px solid var(--primary);">
+            <div class="section-header">
+                <div class="section-number">🎮</div>
+                <h2>Game Simulasi: Latihan Jadi Investor!</h2>
+            </div>
+            
+            <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">
+                <strong>Selamat datang di Simulator Investasi Saham!</strong><br>
+                Rasakan pengalaman investasi saham selama 5 tahun. Beli saham favoritmu setiap bulan dan lihat hasilnya!
+            </p>
+
+            <!-- Game Container -->
+            <div id="game-container">
+                <!-- Player Stats -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px;">
+                    <div style="background: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div style="font-size: 0.75em; color: #666; margin-bottom: 3px;">💰 Saldo RDN</div>
+                        <div style="font-size: 1.3em; font-weight: 700; color: var(--primary);" id="cash-balance">Rp 10.000.000</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div style="font-size: 0.75em; color: #666; margin-bottom: 3px;">📊 Nilai Saham</div>
+                        <div style="font-size: 1.3em; font-weight: 700; color: var(--success);" id="portfolio-value">Rp 0</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div style="font-size: 0.75em; color: #666; margin-bottom: 3px;">💎 Total Ekuitas</div>
+                        <div style="font-size: 1.3em; font-weight: 700; color: var(--secondary);" id="total-equity">Rp 10.000.000</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div style="font-size: 0.75em; color: #666; margin-bottom: 3px;">📅 Bulan</div>
+                        <div style="font-size: 1.3em; font-weight: 700; color: var(--accent);" id="current-month">1 / 60</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div style="font-size: 0.75em; color: #666; margin-bottom: 3px;">💰 Dividen</div>
+                        <div style="font-size: 1.3em; font-weight: 700; color: var(--success);" id="total-dividend">Rp 0</div>
+                    </div>
+                </div>
+
+                <!-- Stock List -->
+                <div style="background: white; padding: 25px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;">📈 Daftar Saham Blue Chip</h3>
+                    <div id="stock-list" style="display: grid; gap: 15px;">
+                        <!-- Stock cards will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- My Portfolio -->
+                <div style="background: white; padding: 25px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;">💼 Portfolio Saya</h3>
+                    <div id="my-portfolio" style="min-height: 100px;">
+                        <p style="text-align: center; color: #999; font-style: italic;">Belum ada saham. Mulai beli sekarang!</p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px;">
+                    <button id="next-month-btn" style="background: linear-gradient(135deg, var(--primary) 0%, #1e4568 100%); color: white; border: none; padding: 15px 40px; border-radius: 12px; font-size: 1.1em; font-weight: 600; cursor: pointer; box-shadow: 0 5px 20px rgba(45, 95, 141, 0.3); transition: all 0.3s;">
+                        ⏭️ Lanjut Bulan Depan
+                    </button>
+                    <button id="auto-invest-btn" style="background: linear-gradient(135deg, var(--success) 0%, #3a7d67 100%); color: white; border: none; padding: 15px 40px; border-radius: 12px; font-size: 1.1em; font-weight: 600; cursor: pointer; box-shadow: 0 5px 20px rgba(74, 155, 127, 0.3); transition: all 0.3s;">
+                        🚀 Auto-Invest 1 Tahun
+                    </button>
+                    <button id="reset-btn" style="background: linear-gradient(135deg, var(--accent) 0%, #b85e4a 100%); color: white; border: none; padding: 15px 40px; border-radius: 12px; font-size: 1.1em; font-weight: 600; cursor: pointer; box-shadow: 0 5px 20px rgba(212, 118, 92, 0.3); transition: all 0.3s;">
+                        🔄 Mulai Ulang
+                    </button>
+                </div>
+
+                <!-- Event Log -->
+                <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;">📰 Berita & Aktivitas</h3>
+                    <div id="event-log" style="max-height: 250px; overflow-y: auto; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <p style="color: #666; text-align: center;">🎉 Simulasi dimulai! Selamat berinvestasi!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.2) !important;
+            }
+
+            button:active {
+                transform: translateY(0);
+            }
+
+            .stock-card {
+                display: grid;
+                grid-template-columns: 1fr auto auto;
+                gap: 15px;
+                align-items: center;
+                padding: 15px;
+                background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+                border-radius: 12px;
+                border: 2px solid #e0e0e0;
+                transition: all 0.3s;
+            }
+
+            .stock-card:hover {
+                border-color: var(--secondary);
+                box-shadow: 0 5px 15px rgba(232, 165, 71, 0.2);
+            }
+
+            .stock-info {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .stock-name {
+                font-weight: 700;
+                font-size: 1.2em;
+                color: var(--primary);
+            }
+
+            .stock-price {
+                font-size: 1.1em;
+                color: #666;
+                margin-top: 5px;
+            }
+
+            .price-change {
+                font-size: 0.9em;
+                font-weight: 600;
+                margin-top: 5px;
+            }
+
+            .price-up {
+                color: #4A9B7F;
+            }
+
+            .price-down {
+                color: #D4765C;
+            }
+
+            .buy-btn {
+                background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+
+            .buy-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 5px 15px rgba(232, 165, 71, 0.3);
+            }
+
+            .buy-btn:disabled {
+                background: #ccc;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            .sell-btn {
+                background: linear-gradient(135deg, #D4765C 0%, #b85e4a 100%);
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+
+            .sell-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 5px 15px rgba(212, 118, 92, 0.3);
+            }
+
+            .portfolio-item {
+                display: grid;
+                grid-template-columns: 1fr auto auto;
+                gap: 15px;
+                align-items: center;
+                padding: 12px;
+                background: #f8f9fa;
+                border-radius: 10px;
+                margin-bottom: 10px;
+                border-left: 4px solid var(--success);
+            }
+
+            .event-item {
+                padding: 10px;
+                margin-bottom: 8px;
+                background: white;
+                border-radius: 8px;
+                border-left: 3px solid var(--secondary);
+                font-size: 0.95em;
+            }
+
+            .event-positive {
+                border-left-color: var(--success);
+            }
+
+            .event-negative {
+                border-left-color: var(--accent);
+            }
+        </style>
+
+        <script>
+            // Game State
+            const gameState = {
+                cash: 10000000,
+                month: 1,
+                totalDividend: 0,
+                stocks: [
+                    { 
+                        code: 'PGAS', 
+                        name: 'Perusahaan Gas Negara', 
+                        price: 1500, 
+                        basePrice: 1500, 
+                        lots: 0, 
+                        avgPrice: 0, 
+                        dividendYield: 0.06, 
+                        sector: '⚡',
+                        monthsHeld: 0,
+                        lastDividendMonth: 0
+                    },
+                    { 
+                        code: 'TLKM', 
+                        name: 'Telkom Indonesia', 
+                        price: 3200, 
+                        basePrice: 3200, 
+                        lots: 0, 
+                        avgPrice: 0, 
+                        dividendYield: 0.05, 
+                        sector: '📱',
+                        monthsHeld: 0,
+                        lastDividendMonth: 0
+                    },
+                    { 
+                        code: 'ASII', 
+                        name: 'Astra International', 
+                        price: 5500, 
+                        basePrice: 5500, 
+                        lots: 0, 
+                        avgPrice: 0, 
+                        dividendYield: 0.04, 
+                        sector: '🚗',
+                        monthsHeld: 0,
+                        lastDividendMonth: 0
+                    },
+                    { 
+                        code: 'BBCA', 
+                        name: 'Bank Central Asia', 
+                        price: 8500, 
+                        basePrice: 8500, 
+                        lots: 0, 
+                        avgPrice: 0, 
+                        dividendYield: 0.03, 
+                        sector: '🏦',
+                        monthsHeld: 0,
+                        lastDividendMonth: 0
+                    },
+                    { 
+                        code: 'UNVR', 
+                        name: 'Unilever Indonesia', 
+                        price: 4200, 
+                        basePrice: 4200, 
+                        lots: 0, 
+                        avgPrice: 0, 
+                        dividendYield: 0.035, 
+                        sector: '🧴',
+                        monthsHeld: 0,
+                        lastDividendMonth: 0
+                    }
+                ],
+                events: []
+            };
+
+            // Utility Functions
+            function formatRupiah(amount) {
+                return 'Rp ' + Math.floor(amount).toLocaleString('id-ID');
+            }
+
+            function addEvent(message, type = 'neutral') {
+                const eventLog = document.getElementById('event-log');
+                const eventDiv = document.createElement('div');
+                eventDiv.className = `event-item ${type === 'positive' ? 'event-positive' : type === 'negative' ? 'event-negative' : ''}`;
+                eventDiv.innerHTML = `<strong>Bulan ${gameState.month}:</strong> ${message}`;
+                eventLog.insertBefore(eventDiv, eventLog.firstChild);
+                
+                // Keep only last 20 events
+                while (eventLog.children.length > 20) {
+                    eventLog.removeChild(eventLog.lastChild);
+                }
+            }
+
+            // Update UI
+            function updateUI() {
+                document.getElementById('cash-balance').textContent = formatRupiah(gameState.cash);
+                
+                const portfolioValue = gameState.stocks.reduce((sum, stock) => 
+                    sum + (stock.lots * 100 * stock.price), 0);
+                document.getElementById('portfolio-value').textContent = formatRupiah(portfolioValue);
+                
+                const totalEquity = gameState.cash + portfolioValue;
+                document.getElementById('total-equity').textContent = formatRupiah(totalEquity);
+                
+                document.getElementById('current-month').textContent = `${gameState.month} / 60`;
+                document.getElementById('total-dividend').textContent = formatRupiah(gameState.totalDividend);
+                
+                renderStockList();
+                renderPortfolio();
+            }
+
+            // Render Stock List
+            function renderStockList() {
+                const stockList = document.getElementById('stock-list');
+                stockList.innerHTML = '';
+                
+                gameState.stocks.forEach((stock, index) => {
+                    const priceChange = ((stock.price - stock.basePrice) / stock.basePrice * 100).toFixed(2);
+                    const changeClass = priceChange >= 0 ? 'price-up' : 'price-down';
+                    const changeSymbol = priceChange >= 0 ? '▲' : '▼';
+                    
+                    const stockCard = document.createElement('div');
+                    stockCard.className = 'stock-card';
+                    stockCard.innerHTML = `
+                        <div class="stock-info">
+                            <div class="stock-name">${stock.sector} ${stock.code}</div>
+                            <div style="font-size: 0.85em; color: #666;">${stock.name}</div>
+                            <div class="stock-price">${formatRupiah(stock.price)}/lembar</div>
+                            <div class="price-change ${changeClass}">${changeSymbol} ${Math.abs(priceChange)}%</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 0.8em; color: #666; margin-bottom: 3px;">Div. Yield</div>
+                            <div style="font-size: 1em; font-weight: 600; color: var(--success); margin-bottom: 8px;">${(stock.dividendYield * 100).toFixed(1)}%</div>
+                            <div style="font-size: 0.75em; color: #999;">1 lot = 100 lembar</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+                            <div style="display: flex; gap: 5px; align-items: center;">
+                                <input type="number" id="buy-lot-${index}" min="1" value="1" 
+                                    style="width: 60px; padding: 5px; border: 2px solid #ddd; border-radius: 5px; text-align: center; font-weight: 600;">
+                                <span style="font-size: 0.85em; color: #666;">lot</span>
+                            </div>
+                            <button class="buy-btn" onclick="buyStock(${index})" style="padding: 8px 20px; font-size: 0.9em;">
+                                💰 Beli
+                            </button>
+                            ${stock.lots > 0 ? `
+                                <button class="sell-btn" onclick="showSellModal(${index})" style="padding: 8px 20px; font-size: 0.9em;">
+                                    💵 Jual
+                                </button>
+                            ` : ''}
+                        </div>
+                    `;
+                    stockList.appendChild(stockCard);
+                });
+            }
+
+            // Render Portfolio
+            function renderPortfolio() {
+                const portfolio = document.getElementById('my-portfolio');
+                const ownedStocks = gameState.stocks.filter(s => s.lots > 0);
+                
+                if (ownedStocks.length === 0) {
+                    portfolio.innerHTML = '<p style="text-align: center; color: #999; font-style: italic;">Belum ada saham. Mulai beli sekarang!</p>';
+                    return;
+                }
+                
+                portfolio.innerHTML = '';
+                ownedStocks.forEach(stock => {
+                    const shares = stock.lots * 100;
+                    const totalValue = shares * stock.price;
+                    const totalCost = shares * stock.avgPrice;
+                    const profit = totalValue - totalCost;
+                    const profitPercent = (profit / totalCost * 100).toFixed(2);
+                    const profitClass = profit >= 0 ? 'price-up' : 'price-down';
+                    
+                    const portfolioItem = document.createElement('div');
+                    portfolioItem.className = 'portfolio-item';
+                    portfolioItem.innerHTML = `
+                        <div>
+                            <div style="font-weight: 700; color: var(--primary); margin-bottom: 3px;">${stock.sector} ${stock.code}</div>
+                            <div style="font-size: 0.85em; color: #666;">
+                                ${stock.lots} lot (${shares.toLocaleString()} lembar) @ ${formatRupiah(stock.avgPrice)}
+                            </div>
+                            <div style="font-size: 0.8em; color: #999; margin-top: 2px;">
+                                Dimiliki: ${stock.monthsHeld} bulan
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 600; font-size: 0.95em;">${formatRupiah(totalValue)}</div>
+                            <div class="price-change ${profitClass}" style="font-size: 0.85em; margin-top: 3px;">
+                                ${profit >= 0 ? '+' : ''}${formatRupiah(profit)} (${profitPercent}%)
+                            </div>
+                        </div>
+                    `;
+                    portfolio.appendChild(portfolioItem);
+                });
+            }
+
+            // Buy Stock
+            function buyStock(index) {
+                const stock = gameState.stocks[index];
+                const lotInput = document.getElementById(`buy-lot-${index}`);
+                const lots = parseInt(lotInput.value) || 1;
+                
+                if (lots < 1) {
+                    addEvent(`❌ Jumlah lot harus minimal 1`, 'negative');
+                    return;
+                }
+                
+                const shares = lots * 100;
+                const totalCost = stock.price * shares;
+                
+                if (gameState.cash < totalCost) {
+                    addEvent(`❌ Saldo tidak cukup! Butuh ${formatRupiah(totalCost)}, saldo ${formatRupiah(gameState.cash)}`, 'negative');
+                    return;
+                }
+                
+                // Update stock holdings
+                const totalShares = (stock.lots * 100) + shares;
+                stock.avgPrice = ((stock.avgPrice * stock.lots * 100) + (stock.price * shares)) / totalShares;
+                stock.lots += lots;
+                
+                // Reset months held if first purchase
+                if (stock.monthsHeld === 0) {
+                    stock.monthsHeld = 1;
+                }
+                
+                gameState.cash -= totalCost;
+                
+                addEvent(`✅ Membeli ${lots} lot (${shares} lembar) ${stock.code} @ ${formatRupiah(stock.price)} = ${formatRupiah(totalCost)}`, 'positive');
+                lotInput.value = 1; // Reset input
+                updateUI();
+            }
+
+            // Show Sell Modal
+            function showSellModal(index) {
+                const stock = gameState.stocks[index];
+                const lots = prompt(`Mau jual berapa lot ${stock.code}?\n(Kamu punya: ${stock.lots} lot)\n\nMasukkan jumlah lot:`);
+                
+                if (lots === null) return; // User cancelled
+                
+                const lotsToSell = parseInt(lots);
+                if (isNaN(lotsToSell) || lotsToSell < 1) {
+                    addEvent(`❌ Jumlah lot tidak valid`, 'negative');
+                    return;
+                }
+                
+                sellStock(index, lotsToSell);
+            }
+
+            // Sell Stock
+            function sellStock(index, lotsToSell) {
+                const stock = gameState.stocks[index];
+                
+                if (lotsToSell > stock.lots) {
+                    addEvent(`❌ Kamu hanya punya ${stock.lots} lot ${stock.code}`, 'negative');
+                    return;
+                }
+                
+                const sharesToSell = lotsToSell * 100;
+                const totalRevenue = stock.price * sharesToSell;
+                const costBasis = stock.avgPrice * sharesToSell;
+                const profit = totalRevenue - costBasis;
+                
+                stock.lots -= lotsToSell;
+                gameState.cash += totalRevenue;
+                
+                // Reset if all sold
+                if (stock.lots === 0) {
+                    stock.avgPrice = 0;
+                    stock.monthsHeld = 0;
+                    stock.lastDividendMonth = 0;
+                }
+                
+                addEvent(`💵 Menjual ${lotsToSell} lot (${sharesToSell} lembar) ${stock.code} @ ${formatRupiah(stock.price)} = ${formatRupiah(totalRevenue)} | ${profit >= 0 ? 'Untung' : 'Rugi'}: ${formatRupiah(Math.abs(profit))}`, profit >= 0 ? 'positive' : 'negative');
+                updateUI();
+            }
+
+            // Simulate Price Change
+            function simulatePriceChange() {
+                gameState.stocks.forEach(stock => {
+                    // Random price movement between -8% to +12%
+                    const changePercent = (Math.random() * 0.20) - 0.08;
+                    stock.price = Math.max(stock.basePrice * 0.5, stock.price * (1 + changePercent));
+                    stock.price = Math.round(stock.price / 50) * 50; // Round to nearest 50
+                });
+            }
+
+            // Pay Dividends (every 6 months after purchase)
+            function payDividends() {
+                let totalDivThisMonth = 0;
+                
+                gameState.stocks.forEach(stock => {
+                    if (stock.lots > 0 && stock.monthsHeld > 0) {
+                        // Increase months held
+                        stock.monthsHeld++;
+                        
+                        // Pay dividend every 6 months
+                        if (stock.monthsHeld >= 6 && (stock.monthsHeld - stock.lastDividendMonth) >= 6) {
+                            const shares = stock.lots * 100;
+                            const dividend = shares * stock.price * (stock.dividendYield / 2); // Semi-annual
+                            gameState.cash += dividend;
+                            gameState.totalDividend += dividend;
+                            totalDivThisMonth += dividend;
+                            stock.lastDividendMonth = stock.monthsHeld;
+                            addEvent(`💰 Dividen ${stock.code}: ${formatRupiah(dividend)} (${stock.lots} lot x 100 lembar)`, 'positive');
+                        }
+                    }
+                });
+                
+                if (totalDivThisMonth > 0) {
+                    addEvent(`🎉 Total dividen bulan ini: ${formatRupiah(totalDivThisMonth)}`, 'positive');
+                }
+            }
+
+            // Random Market Events
+            function triggerRandomEvent() {
+                if (Math.random() < 0.12) { // 12% chance each month
+                    const events = [
+                        { msg: '📈 Pasar bullish! Saham naik rata-rata 5%', effect: 0.05 },
+                        { msg: '📉 Koreksi pasar! Saham turun rata-rata 3%', effect: -0.03 },
+                        { msg: '⚡ Kenaikan harga energi! PGAS naik 8%', stock: 'PGAS', effect: 0.08 },
+                        { msg: '📱 Peluncuran produk baru! TLKM naik 6%', stock: 'TLKM', effect: 0.06 },
+                        { msg: '🚗 Penjualan mobil meningkat! ASII naik 7%', stock: 'ASII', effect: 0.07 },
+                        { msg: '🏦 Suku bunga turun! BBCA naik 5%', stock: 'BBCA', effect: 0.05 },
+                        { msg: '🧴 Produk laris manis! UNVR naik 4%', stock: 'UNVR', effect: 0.04 },
+                    ];
+                    
+                    const event = events[Math.floor(Math.random() * events.length)];
+                    addEvent(event.msg, event.effect > 0 ? 'positive' : 'negative');
+                    
+                    if (event.stock) {
+                        const stock = gameState.stocks.find(s => s.code === event.stock);
+                        if (stock) stock.price *= (1 + event.effect);
+                    } else {
+                        gameState.stocks.forEach(stock => {
+                            stock.price *= (1 + event.effect);
+                        });
+                    }
+                }
+            }
+
+            // Next Month
+            function nextMonth() {
+                if (gameState.month >= 60) {
+                    showFinalResults();
+                    return;
+                }
+                
+                gameState.month++;
+                simulatePriceChange();
+                triggerRandomEvent();
+                payDividends();
+                
+                addEvent(`📅 Memasuki bulan ke-${gameState.month}`, 'neutral');
+                updateUI();
+                
+                if (gameState.month === 60) {
+                    setTimeout(showFinalResults, 500);
+                }
+            }
+
+            // Auto Invest for 1 Year
+            function autoInvest() {
+                const monthsToInvest = Math.min(12, 60 - gameState.month);
+                
+                for (let i = 0; i < monthsToInvest; i++) {
+                    // Auto buy stocks with available cash
+                    const affordableStocks = gameState.stocks.filter(s => s.price * 100 <= gameState.cash);
+                    if (affordableStocks.length > 0 && gameState.cash >= 500000) {
+                        const randomStock = affordableStocks[Math.floor(Math.random() * affordableStocks.length)];
+                        const stockIndex = gameState.stocks.indexOf(randomStock);
+                        const lotsCanBuy = Math.floor(gameState.cash / (randomStock.price * 100));
+                        const lotsToBuy = Math.min(lotsCanBuy, Math.ceil(Math.random() * 3)); // Buy 1-3 lots
+                        
+                        // Simulate buying
+                        const shares = lotsToBuy * 100;
+                        const totalCost = randomStock.price * shares;
+                        const totalShares = (randomStock.lots * 100) + shares;
+                        randomStock.avgPrice = ((randomStock.avgPrice * randomStock.lots * 100) + (randomStock.price * shares)) / totalShares;
+                        randomStock.lots += lotsToBuy;
+                        if (randomStock.monthsHeld === 0) randomStock.monthsHeld = 1;
+                        gameState.cash -= totalCost;
+                    }
+                    
+                    nextMonth();
+                }
+                
+                addEvent(`🚀 Auto-invest selesai! ${monthsToInvest} bulan berlalu`, 'positive');
+            }
+
+            // Show Final Results
+            function showFinalResults() {
+                const portfolioValue = gameState.stocks.reduce((sum, stock) => 
+                    sum + (stock.lots * 100 * stock.price), 0);
+                const totalValue = gameState.cash + portfolioValue;
+                const initialInvestment = 10000000;
+                const profit = totalValue - initialInvestment;
+                const returnPercent = (profit / initialInvestment * 100).toFixed(2);
+                
+                const resultMsg = `
+                    <div style="background: linear-gradient(135deg, var(--success) 0%, #3a7d67 100%); color: white; padding: 30px; border-radius: 20px; text-align: center; margin: 20px 0;">
+                        <h2 style="color: white; margin-bottom: 20px;">🎉 SELAMAT! SIMULASI 5 TAHUN SELESAI!</h2>
+                        <div style="font-size: 1.6em; font-weight: 700; margin: 15px 0;">Total Kekayaan: ${formatRupiah(totalValue)}</div>
+                        <div style="font-size: 1.2em; margin: 10px 0;">Keuntungan: ${formatRupiah(profit)} (${returnPercent >= 0 ? '+' : ''}${returnPercent}%)</div>
+                        <div style="font-size: 1em; margin: 10px 0;">Total Dividen: ${formatRupiah(gameState.totalDividend)}</div>
+                        <div style="font-size: 1em; margin: 10px 0;">Nilai Saham: ${formatRupiah(portfolioValue)} | Kas: ${formatRupiah(gameState.cash)}</div>
+                        <div style="font-size: 1em; margin-top: 20px; opacity: 0.9;">
+                            ${returnPercent > 50 ? '🏆 Luar biasa! Kamu investor handal!' : 
+                              returnPercent > 20 ? '👏 Bagus sekali! Hasil yang solid!' : 
+                              returnPercent > 0 ? '👍 Baik! Terus belajar dan konsisten!' : 
+                              '💪 Jangan menyerah! Coba strategi berbeda!'}
+                        </div>
+                    </div>
+                `;
+                
+                const eventLog = document.getElementById('event-log');
+                eventLog.innerHTML = resultMsg + eventLog.innerHTML;
+                
+                addEvent('🎊 Simulasi selesai! Klik "Mulai Ulang" untuk mencoba lagi', 'positive');
+            }
+
+            // Reset Game
+            function resetGame() {
+                gameState.cash = 10000000;
+                gameState.month = 1;
+                gameState.totalDividend = 0;
+                gameState.stocks.forEach(stock => {
+                    stock.price = stock.basePrice;
+                    stock.lots = 0;
+                    stock.avgPrice = 0;
+                    stock.monthsHeld = 0;
+                    stock.lastDividendMonth = 0;
+                });
+                
+                document.getElementById('event-log').innerHTML = '<p style="color: #666; text-align: center;">🎉 Simulasi dimulai! Selamat berinvestasi!</p>';
+                addEvent('🔄 Game direset. Mulai investasi baru!', 'neutral');
+                updateUI();
+            }
+
+            // Event Listeners
+            document.getElementById('next-month-btn').addEventListener('click', nextMonth);
+            document.getElementById('auto-invest-btn').addEventListener('click', autoInvest);
+            document.getElementById('reset-btn').addEventListener('click', resetGame);
+
+            // Initialize Game
+            updateUI();
+        </script>
+
+        <div style="text-align: center; padding: 40px 20px; color: #888; font-size: 0.9em;">
+            <p>© 2026 Modul Belajar Saham | Dibuat dengan ❤️ untuk calon investor cerdas Indonesia</p>
+        </div>
+    </div>
+</body>
+</html>
